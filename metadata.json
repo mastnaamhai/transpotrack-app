@@ -1,0 +1,7 @@
+{
+  "name": "TranspoTrack - Goods Transport Agency Manager",
+  "description": "A comprehensive web application for goods transport agencies to manage Lorry Receipts (LRs), invoices, payments, and maintain client ledgers efficiently.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
