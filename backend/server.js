@@ -4,13 +4,35 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const apiRoutes = require('./routes'); // We will create this next
+const apiRoutes = require('./routes');
 
 const app = express();
 const PORT = process.env.PORT || 5001;
 
+// --- CORS CONFIGURATION SECTION ---
+// This is where you will add your Netlify URL
+
+const allowedOrigins = [
+  'http://localhost:5173', // For your local development
+  
+  // PASTE YOUR LIVE NETLIFY URL HERE inside the quotes.
+  // Example: 'https://transpotrack-app.netlify.app'
+  'https://transcendent-stardust-3f8063.netlify.app/' 
+];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    // The `!origin` part allows server-to-server requests or tools like Postman.
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+};
+
 // Middleware
-app.use(cors());
+app.use(cors(corsOptions)); // Use the configured options
 app.use(express.json());
 
 // API Routes
