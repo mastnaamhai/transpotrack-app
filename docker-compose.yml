@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    container_name: transpotrack-frontend
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - "5001:5001"
+    container_name: transpotrack-backend
+    env_file:
+      - backend/.env
+    restart: unless-stopped
+
+networks:
+  default:
+    name: transpotrack-network

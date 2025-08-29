@@ -11,21 +11,27 @@ const {
 const createCrudEndpoints = (model, modelName) => {
   // GET all
   router.get(`/${modelName}`, async (req, res) => {
+    console.log(`[API] Attempting to GET all from ${modelName}`);
     try {
       const items = await model.find();
+      console.log(`[API] Successfully found ${items.length} items from ${modelName}`);
       res.json(items);
     } catch (err) {
+      console.error(`[API] Error GETTING all from ${modelName}:`, err);
       res.status(500).json({ message: err.message });
     }
   });
 
   // POST new
   router.post(`/${modelName}`, async (req, res) => {
+    console.log(`[API] Attempting to POST to ${modelName}`);
     const item = new model(req.body);
     try {
       const newItem = await item.save();
+      console.log(`[API] Successfully POSTED to ${modelName}`);
       res.status(201).json(newItem);
     } catch (err) {
+      console.error(`[API] Error POSTING to ${modelName}:`, err);
       res.status(400).json({ message: err.message });
     }
   });
